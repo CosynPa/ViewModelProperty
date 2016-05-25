@@ -12,6 +12,7 @@
 		7E0254E21CF4569200538CE5 /* ViewModelPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0254E11CF4569200538CE5 /* ViewModelPropertyTests.swift */; };
 		7E0254ED1CF459F600538CE5 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0254EC1CF459F600538CE5 /* ReactiveCocoa.framework */; };
 		7E0254EF1CF45A2F00538CE5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0254EE1CF45A2F00538CE5 /* Result.framework */; };
+		7E0254F11CF45CCF00538CE5 /* ViewModelProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0254F01CF45CCF00538CE5 /* ViewModelProperty.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,8 +32,9 @@
 		7E0254DC1CF4569200538CE5 /* ViewModelPropertyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewModelPropertyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E0254E11CF4569200538CE5 /* ViewModelPropertyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelPropertyTests.swift; sourceTree = "<group>"; };
 		7E0254E31CF4569200538CE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7E0254EC1CF459F600538CE5 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = "ReactiveCocoa.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E0254EE1CF45A2F00538CE5 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = "Result.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E0254EC1CF459F600538CE5 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E0254EE1CF45A2F00538CE5 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E0254F01CF45CCF00538CE5 /* ViewModelProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelProperty.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				7E0254D51CF4569200538CE5 /* ViewModelProperty.h */,
 				7E0254D71CF4569200538CE5 /* Info.plist */,
+				7E0254F01CF45CCF00538CE5 /* ViewModelProperty.swift */,
 			);
 			path = ViewModelProperty;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E0254F11CF45CCF00538CE5 /* ViewModelProperty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,36 +322,31 @@
 		7E0254E71CF4569200538CE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/ReactiveCocoa/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Result/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ViewModelProperty/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FA.ViewModelProperty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		7E0254E81CF4569200538CE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/ReactiveCocoa/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Result/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ViewModelProperty/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
