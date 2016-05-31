@@ -18,6 +18,30 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     public private(set) lazy var noInfoActionSignal: Signal<Value, NoError> = self.actionSignal.map { (value, _) in value }
     private let actionObserver: Signal<(Value, ActionInfo), NoError>.Observer
     
+    public private(set) lazy var mergedProducer: SignalProducer<Value, NoError> = { [unowned self] () -> SignalProducer<Value, NoError> in
+        return SignalProducer<Value, NoError> { observer, producerDisposable in
+            self.updateProducer.startWithSignal { signal, cancelDisposable in
+                producerDisposable += cancelDisposable
+
+                signal.observe { event in
+                    switch event {
+                    case .Next(let valueAndInfo):
+                        observer.sendNext(valueAndInfo.0)
+                    case .Failed, .Interrupted: // no possible
+                        break
+                    case .Completed:
+                        observer.sendCompleted()
+                    }
+                    
+                }
+            }
+            
+            producerDisposable += self.actionSignal.observeNext { valueAndInfo in
+                observer.sendNext(valueAndInfo.0)
+            }
+        }
+    }()
+    
     private let lock: NSRecursiveLock
     private var _value: Value
     
