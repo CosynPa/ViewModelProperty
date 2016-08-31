@@ -25,11 +25,11 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
 
                 signal.observe { event in
                     switch event {
-                    case .Next(let valueAndInfo):
+                    case .next(let valueAndInfo):
                         observer.sendNext(valueAndInfo.0)
-                    case .Failed, .Interrupted: // no possible
+                    case .failed, .interrupted: // no possible
                         break
-                    case .Completed:
+                    case .completed:
                         observer.sendCompleted()
                     }
                     
@@ -134,19 +134,8 @@ public extension ViewModelProperty where ActionInfo: NoInfoType {
     }
 }
 
-infix operator <+ {
-    associativity none
-
-    // Tighter than assignment but looser than everything else
-    precedence 93
-}
-
-infix operator +> {
-    associativity none
-
-    // Tighter than assignment but looser than everything else
-    precedence 93
-}
+infix operator <+ : DefaultPrecedence
+infix operator +> : DefaultPrecedence
 
 // These two operators make the direction of data flow clearer.
 
