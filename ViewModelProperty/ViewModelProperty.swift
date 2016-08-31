@@ -11,14 +11,14 @@ import Result
 
 public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     public let updateProducer: SignalProducer<(Value, UpdateInfo), NoError>
-    public private(set) lazy var noInfoUpdateProducer: SignalProducer<Value, NoError> = self.updateProducer.map { (value, _) in value }
-    private let updateObserver: Signal<(Value, UpdateInfo), NoError>.Observer
+    public fileprivate(set) lazy var noInfoUpdateProducer: SignalProducer<Value, NoError> = self.updateProducer.map { (value, _) in value }
+    fileprivate let updateObserver: Signal<(Value, UpdateInfo), NoError>.Observer
     
     public let actionSignal: Signal<(Value, ActionInfo), NoError>
-    public private(set) lazy var noInfoActionSignal: Signal<Value, NoError> = self.actionSignal.map { (value, _) in value }
-    private let actionObserver: Signal<(Value, ActionInfo), NoError>.Observer
+    public fileprivate(set) lazy var noInfoActionSignal: Signal<Value, NoError> = self.actionSignal.map { (value, _) in value }
+    fileprivate let actionObserver: Signal<(Value, ActionInfo), NoError>.Observer
     
-    public private(set) lazy var mergedProducer: SignalProducer<Value, NoError> = { [unowned self] () -> SignalProducer<Value, NoError> in
+    public fileprivate(set) lazy var mergedProducer: SignalProducer<Value, NoError> = { [unowned self] () -> SignalProducer<Value, NoError> in
         return SignalProducer<Value, NoError> { observer, producerDisposable in
             self.updateProducer.startWithSignal { signal, cancelDisposable in
                 producerDisposable += cancelDisposable
@@ -42,8 +42,8 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
         }
     }()
     
-    private let lock: NSRecursiveLock
-    private var _value: Value
+    fileprivate let lock: NSRecursiveLock
+    fileprivate var _value: Value
     
     public var value: Value {
         get {
@@ -51,7 +51,7 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
         }
     }
     
-    public private(set) lazy var updateSignal: Signal<(Value, UpdateInfo), NoError> = { [unowned self] in
+    public fileprivate(set) lazy var updateSignal: Signal<(Value, UpdateInfo), NoError> = { [unowned self] in
         var extractedSignal: Signal<(Value, UpdateInfo), NoError>!
         self.updateProducer.startWithSignal { signal, _ in
             extractedSignal = signal
@@ -72,7 +72,7 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     }
     
     /// Set the value by program update such as network callback. Returns the old value.
-    public func setValueByUpdate(newValue: Value, info: UpdateInfo) -> Value {
+    public func setValueByUpdate(_ newValue: Value, info: UpdateInfo) -> Value {
         lock.lock()
         defer { lock.unlock() }
         
@@ -83,7 +83,7 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     }
     
     /// Set the value by user action, e.g. user edit a text field. Returns the old value.
-    public func setValueByAction(newValue: Value, info: ActionInfo) -> Value {
+    public func setValueByAction(_ newValue: Value, info: ActionInfo) -> Value {
         lock.lock()
         defer { lock.unlock() }
         
@@ -97,7 +97,7 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     /// variable.
     ///
     /// Returns the result of the action.
-    public func withValue<Result>(@noescape action: (Value) throws -> Result) rethrows -> Result {
+    public func withValue<Result>(action: (Value) throws -> Result) rethrows -> Result {
         lock.lock()
         defer { lock.unlock() }
         
@@ -123,13 +123,13 @@ public extension ViewModelProperty where UpdateInfo: NoInfoType {
         self.init(initialValue, info: UpdateInfo())
     }
     
-    public func setValueByUpdate(newValue: Value) -> Value {
+    public func setValueByUpdate(_ newValue: Value) -> Value {
         return setValueByUpdate(newValue, info: UpdateInfo())
     }
 }
 
 public extension ViewModelProperty where ActionInfo: NoInfoType {
-    public func setValueByAction(newValue: Value) -> Value {
+    public func setValueByAction(_ newValue: Value) -> Value {
         return setValueByAction(newValue, info: ActionInfo())
     }
 }
