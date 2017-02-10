@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 import Result
 
 public enum CurrentOrUpdate<UpdateInfo> {
@@ -32,10 +32,10 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     /// Like updateSignal but send current value immediately
     public private(set) lazy var updateProducer: SignalProducer<(Value, CurrentOrUpdate<UpdateInfo>), NoError> = { [unowned self] in
         return SignalProducer { observer, producerDisposable in
-            observer.sendNext((self._value, .current))
+            observer.send(value: (self._value, .current))
             
-            producerDisposable += self.updateSignal.observeNext { (value, updateInfo) in
-                observer.sendNext((value, .update(updateInfo)))
+            producerDisposable += self.updateSignal.observeValues { (value, updateInfo) in
+                observer.send(value: (value, .update(updateInfo)))
             }
         }
     }()
@@ -43,14 +43,14 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     /// Send current value immediately and send both updates and actions
     public private(set) lazy var allChangeProducer: SignalProducer<(Value, CurrentOrUpdateOrAction<UpdateInfo, ActionInfo>), NoError> = { [unowned self] in
         return SignalProducer { observer, producerDisposable in
-            observer.sendNext((self._value, .current))
+            observer.send(value: (self._value, .current))
             
-            producerDisposable += self.updateSignal.observeNext { (value, updateInfo) in
-                observer.sendNext((value, .update(updateInfo)))
+            producerDisposable += self.updateSignal.observeValues { (value, updateInfo) in
+                observer.send(value: (value, .update(updateInfo)))
             }
             
-            producerDisposable += self.actionSignal.observeNext { (value, actionInfo) in
-                observer.sendNext((value, .action(actionInfo)))
+            producerDisposable += self.actionSignal.observeValues { (value, actionInfo) in
+                observer.send(value: (value, .action(actionInfo)))
             }
         }
     }()
@@ -89,7 +89,7 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
         
         let oldValue = _value
         _value = newValue
-        updateObserver.sendNext((_value, info))
+        updateObserver.send(value: (_value, info))
         return oldValue
     }
     
@@ -101,7 +101,7 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
         
         let oldValue = _value
         _value = newValue
-        actionObserver.sendNext((_value, info))
+        actionObserver.send(value: (_value, info))
         return oldValue
     }
     
