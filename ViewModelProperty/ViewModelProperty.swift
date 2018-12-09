@@ -122,23 +122,19 @@ public final class ViewModelProperty<Value, UpdateInfo, ActionInfo> {
     }
 }
 
-public protocol NoInfoType {
-    init()
-}
-
-public struct NoInfo: NoInfoType {
+public struct NoInfo {
     public init() {}
 }
 
-public extension ViewModelProperty where UpdateInfo: NoInfoType {
+public extension ViewModelProperty where UpdateInfo == NoInfo {
     public func setValueByUpdate(_ newValue: Value) -> Value {
-        return setValueByUpdate(newValue, info: UpdateInfo())
+        return setValueByUpdate(newValue, info: NoInfo())
     }
 }
 
-public extension ViewModelProperty where ActionInfo: NoInfoType {
+public extension ViewModelProperty where ActionInfo == NoInfo {
     public func setValueByAction(_ newValue: Value) -> Value {
-        return setValueByAction(newValue, info: ActionInfo())
+        return setValueByAction(newValue, info: NoInfo())
     }
 }
 
@@ -158,11 +154,11 @@ public func +> <Value, UpdateInfo, ActionInfo>(valueAndInfo: (Value, ActionInfo)
 }
 
 @discardableResult
-public func <+ <Value, UpdateInfo: NoInfoType, ActionInfo>(property: ViewModelProperty<Value, UpdateInfo, ActionInfo>, value: Value) -> Value {
-    return property.setValueByUpdate(value, info: UpdateInfo())
+public func <+ <Value, ActionInfo>(property: ViewModelProperty<Value, NoInfo, ActionInfo>, value: Value) -> Value {
+    return property.setValueByUpdate(value, info: NoInfo())
 }
 
 @discardableResult
-public func +> <Value, UpdateInfo, ActionInfo: NoInfoType>(value: Value, property: ViewModelProperty<Value, UpdateInfo, ActionInfo>) -> Value {
-    return property.setValueByAction(value, info: ActionInfo())
+public func +> <Value, UpdateInfo>(value: Value, property: ViewModelProperty<Value, UpdateInfo, NoInfo>) -> Value {
+    return property.setValueByAction(value, info: NoInfo())
 }
