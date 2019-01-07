@@ -162,3 +162,28 @@ public func <+ <Value, ActionInfo>(property: ViewModelProperty<Value, NoInfo, Ac
 public func +> <Value, UpdateInfo>(value: Value, property: ViewModelProperty<Value, UpdateInfo, NoInfo>) -> Value {
     return property.setValueByAction(value, info: NoInfo())
 }
+
+infix operator ?<+ : DefaultPrecedence
+infix operator +>? : DefaultPrecedence
+
+// These two operators are for optional properties
+
+@discardableResult
+public func ?<+ <Value, UpdateInfo, ActionInfo>(property: ViewModelProperty<Value, UpdateInfo, ActionInfo>?, valueAndInfo: (Value, UpdateInfo)) -> Value? {
+	return property?.setValueByUpdate(valueAndInfo.0, info: valueAndInfo.1)
+}
+
+@discardableResult
+public func +>? <Value, UpdateInfo, ActionInfo>(valueAndInfo: (Value, ActionInfo), property: ViewModelProperty<Value, UpdateInfo, ActionInfo>?) -> Value? {
+	return property?.setValueByAction(valueAndInfo.0, info: valueAndInfo.1)
+}
+
+@discardableResult
+public func ?<+ <Value, ActionInfo>(property: ViewModelProperty<Value, NoInfo, ActionInfo>?, value: Value) -> Value? {
+	return property?.setValueByUpdate(value, info: NoInfo())
+}
+
+@discardableResult
+public func +>? <Value, UpdateInfo>(value: Value, property: ViewModelProperty<Value, UpdateInfo, NoInfo>?) -> Value? {
+	return property?.setValueByAction(value, info: NoInfo())
+}
