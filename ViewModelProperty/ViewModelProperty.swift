@@ -126,13 +126,13 @@ public struct NoInfo {
 }
 
 public extension ViewModelProperty where UpdateInfo == NoInfo {
-    public func setValueByUpdate(_ newValue: Value) -> Value {
+    func setValueByUpdate(_ newValue: Value) -> Value {
         return setValueByUpdate(newValue, info: NoInfo())
     }
 }
 
 public extension ViewModelProperty where ActionInfo == NoInfo {
-    public func setValueByAction(_ newValue: Value) -> Value {
+    func setValueByAction(_ newValue: Value) -> Value {
         return setValueByAction(newValue, info: NoInfo())
     }
 }

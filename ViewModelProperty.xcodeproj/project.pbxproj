@@ -169,11 +169,11 @@
 				TargetAttributes = {
 					7E0254D11CF4569200538CE5 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1100;
 					};
 					7E0254DB1CF4569200538CE5 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -182,6 +182,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7E0254C81CF4569200538CE5;
@@ -351,7 +352,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -374,7 +375,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -386,7 +387,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.FA.ViewModelPropertyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -398,7 +399,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.FA.ViewModelPropertyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
